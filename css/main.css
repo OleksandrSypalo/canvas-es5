@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+}
+
+canvas {
+    display: block;
+    position: relative;
+    margin: 54px auto 0;
+    box-shadow: 1px 1px 4px #aaa;
+}
+
+.score {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 50px;
+
+    background-color: #000;
+    color: #fff;
+
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+
+    box-sizing: border-box;
+    -webkit-transition: all .5s;
+    transition: all .5s;
+}
+
+.score:not(.lg):before {
+    content: 'Score: ';
+}
+
+.score.lg {
+    height: 100vh;
+    font-size: 3em;
+    font-weight: 800;
+    padding: 20vw 0;
+    line-height: 10vh;
+    background-color: rgba(0, 0, 0, .35);
+    color: #333;
+}
+
+.score.lg:before {
+    content: 'PLAY \A (Last score: ';
+    white-space: pre;
+}
+
+.score.lg:after {
+    content: ')';
+}
