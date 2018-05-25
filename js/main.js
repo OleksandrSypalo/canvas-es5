@@ -163,7 +163,7 @@ function GameConstructor(customConfigs) {
         }, customConfigs),
 
         tetrominoesMatrix = [],
-        currentTetromino = null,
+        activeTetromino = null,
         renderMatrix = null,
         animation = null,
 
@@ -193,7 +193,7 @@ function GameConstructor(customConfigs) {
                 configs.groundWidth,
                 configs.groundHeight
             ]);
-            currentTetromino = null;
+            activeTetromino = null;
             score = 0;
         },
         getTetrominoes: function () {
@@ -235,8 +235,9 @@ function GameConstructor(customConfigs) {
             self._renderMatrix = renderMatrix; // buffer
         },
         createTetromino: function () {
-            currentTetromino = new Tetromino(configs, animation);
-            currentTetromino.create(utils.getRandomItemFromArray(tetrominoesMatrix));
+            activeTetromino = new Tetromino(configs, animation);
+            activeTetromino.create(utils.getRandomItemFromArray(tetrominoesMatrix));
+            self._activeTetromino = activeTetromino;
         },
         pushToGround: function (tetromino) {
             utils.readMatrix(tetromino.matrix, function (matrixItem, x, y) {
@@ -285,19 +286,19 @@ function GameConstructor(customConfigs) {
             return 1;
         },
         keyEvent: function (command) {
-            if (currentTetromino && played) {
+            if (activeTetromino && played) {
                 switch (command) {
                     case configs.commandsCode.moveTetrominoToLeft:
-                        currentTetromino.transformTranslate('positionX', -1);
+                        activeTetromino.transformTranslate('positionX', -1);
                         break;
                     case configs.commandsCode.moveTetrominoToRight:
-                        currentTetromino.transformTranslate('positionX', 1);
+                        activeTetromino.transformTranslate('positionX', 1);
                         break;
                     case configs.commandsCode.moveTetrominoFastDown:
-                        currentTetromino.transformTranslate('positionY', 1);
+                        activeTetromino.transformTranslate('positionY', 1);
                         break;
                     case configs.commandsCode.rotateTetromino:
-                        currentTetromino.transformRotate();
+                        activeTetromino.transformRotate();
                         break;
                     default:
                         break;
@@ -306,7 +307,7 @@ function GameConstructor(customConfigs) {
         },
         render: function () {
             if (played) {
-                renderMatrix.update(self.ground, currentTetromino.tetromino);
+                renderMatrix.update(self.ground, activeTetromino.tetromino);
             } else {
                 self.finished();
             }

@@ -58,14 +58,14 @@ var Animation = function (customConfigs) {
         runTypeInterval: function (callback) {
             self.intervalTimer = window.setInterval(function () {
                 self.process(callback);
-            }, configs.ftp);
+            }, (1000/configs.ftp));
         },
         setInterval: function (settings) {
             var id = self.bufferCallbacks.length;
 
             self.bufferCallbacks.push(utils.mergeObjects({
                 id: id,
-                interval: configs.ftp,
+                interval: (1000/configs.ftp),
                 callLength: 0,
                 maxCall: Infinity,
                 timeStart: utils.now(),

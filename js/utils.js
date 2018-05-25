@@ -1,3 +1,5 @@
+'use strict';
+
 var utils = {
     noop: function () {},
     now: function () {
@@ -87,14 +89,13 @@ var utils = {
         var left = 0,
             right = 0,
             top = 0,
-            bottom = 0;
-
-        var searchLeft = true;
-        var searchTop = true;
+            bottom = 0,
+            searchLeft = true,
+            searchTop = true;
 
         matrix.forEach(function (matrixCol, x) {
-            var isEmptyCol = true;
-            var isEmptyRow = true;
+            var isEmptyCol = true,
+                isEmptyRow = true;
 
             matrixCol.forEach(function (matrixCeil, y) {
                 if(matrixCeil) {
