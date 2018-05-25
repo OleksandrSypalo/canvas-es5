@@ -44,9 +44,7 @@ function Tetromino(customConfigs, animation) {
             animation.clearInterval(self.translateInterval);
             animation.cleaningBuffer();
 
-            setTimeout(function () {
-                self = null;
-            }, 100);
+            self = null;
         },
 
         checkPosition: {
@@ -76,10 +74,10 @@ function Tetromino(customConfigs, animation) {
                         actualPosition
                     )
                 ) {
-                    gameTetris.pushToGround(self.tetromino);
-                    gameTetris.createTetromino();
-
-                    self.remove();
+                    if (self) {
+                        gameTetris.pushToGround(self.tetromino);
+                        gameTetris.createTetromino();
+                    }
 
                     return false;
                 }
@@ -177,7 +175,6 @@ function GameConstructor(customConfigs) {
             tetrominoesMatrix = self.getTetrominoes();
             self.createRenderMatrix();
             self.createAnimation();
-            self.createTetromino();
 
             return self;
         },
@@ -235,6 +232,10 @@ function GameConstructor(customConfigs) {
             self._renderMatrix = renderMatrix; // buffer
         },
         createTetromino: function () {
+            if (activeTetromino) {
+                activeTetromino.remove();
+            }
+
             activeTetromino = new Tetromino(configs, animation);
             activeTetromino.create(utils.getRandomItemFromArray(tetrominoesMatrix));
             self._activeTetromino = activeTetromino;

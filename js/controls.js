@@ -2,16 +2,22 @@
 
 !function () {
     var touchStart = [0, 0],
-        deltaTouch = window.innerWidth / 4;
+        deltaTouch = window.innerWidth / 4,
+        nodeScore = document.querySelector('.score');
 
     document.body.addEventListener('keydown', function (e) {
+        if (nodeScore.classList.contains('lg')) {
+            window.gameTetris.reset();
+            nodeScore.classList.remove('lg');
+        }
+
         if (KEYCODES[e.keyCode]) {
             window.gameTetris.keyEvent(KEYCODES[e.keyCode]);
             return false;
         }
     });
 
-    document.querySelector('.score').addEventListener('click', function () {
+    nodeScore.addEventListener('click', function () {
         window.gameTetris.reset();
         this.classList.remove('lg');
     });
